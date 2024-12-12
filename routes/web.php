@@ -9,7 +9,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Dashboard redirect berdasarkan role
+
 Route::get('/dashboard', function () {
     if (auth()->user()->hasRole('admin')) {
         return redirect()->route('admin.dashboard');
@@ -22,7 +22,7 @@ Route::get('/dashboard', function () {
     return view('dashboard'); // Untuk user biasa
 })->middleware(['auth', 'check.status', 'verified'])->name('dashboard');
 
-// Rute untuk admin tanpa prefix
+
 Route::middleware(['auth', 'check.status', 'role:admin'])->group(function () {
     Route::get('admin', [AdminController::class, 'index'])->name('admin.dashboard');
     Route::get('admin/account/create', [AdminController::class, 'create'])->name('account.create');
@@ -34,17 +34,16 @@ Route::middleware(['auth', 'check.status', 'role:admin'])->group(function () {
     Route::delete('admin/account/{id}', [AdminController::class, 'destroy'])->name('account.destroy');
 });
 
-// Rute untuk guest tanpa prefix
+
 Route::middleware(['auth', 'check.status', 'role:guest'])->group(function () {
     Route::get('guest', [GuestController::class, 'index'])->name('guest.dashboard');
 });
 
-// Rute untuk profile pengguna
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-// Include rute autentikasi bawaan
 require __DIR__ . '/auth.php';

@@ -10,9 +10,18 @@ class AdminController extends Controller
     /**
      * Tampilkan daftar pengguna di dashboard admin.
      */
-    public function index()
+    public function index(Request $request)
     {
         $users = User::all();
+
+        $search = $request->input('search');
+        $users = User::query()
+            ->when($search, function ($query, $search) {
+                return $query->where('name', 'like', "%{$search}%")
+                             ->orWhere('email', 'like', "%{$search}%");
+            })
+            ->paginate(10);
+
         return view('admin.dashboard', compact('users'));
     }
 

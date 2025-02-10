@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Tamu;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -13,6 +14,7 @@ class AdminController extends Controller
     public function index(Request $request)
     {
         $users = User::all();
+        $tamus = Tamu::all();
 
         $search = $request->input('search');
         $users = User::query()
@@ -22,7 +24,7 @@ class AdminController extends Controller
             })
             ->paginate(10);
 
-        return view('admin.dashboard', compact('users'));
+        return view('admin.dashboard', compact('users', 'tamus'));
     }
 
     /**

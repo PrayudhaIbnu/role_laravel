@@ -32,6 +32,6 @@ class CheckUserStatus
             }
         }
 
-        return $next($request);
+        return $next($request); // Lanjutkan ke request berikutnya
     }
 }

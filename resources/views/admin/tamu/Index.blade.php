@@ -14,12 +14,11 @@
                     {{ __('Daftar Akun') }}
                 </div>
                 <div class="div flex jutify-between gap-4">
-                    <a href="#" onclick="alert('Tidak Bisa Menambahkan Akun'); return false;">
+                    <a href="{{ route('account.create') }}">
                         <x-primary-button>
                             Tambah Akun
                         </x-primary-button>
                     </a>
-
                     <a href="{{ route('tamu.create') }}">
                         <x-primary-button>
                             Tambah Tamu

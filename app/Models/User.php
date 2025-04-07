@@ -73,4 +73,9 @@ class User extends Authenticatable
     {
         return $this->hasRole(self::ROLE_USER);
     }
+
+    public function contents()
+    {
+        return $this->hasMany(Content::class);
+    }
 }
